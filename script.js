@@ -18,7 +18,7 @@ const app = () => {
   //Duration
   let FakeDuration = 600;
 
-  outline.getElementsByClassName.strokeDasharray = 100;
+  outline.style.strokeDasharray = outlineLength;
 };
 
 app();
