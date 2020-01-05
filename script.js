@@ -10,7 +10,7 @@ const app = () => {
 
   //Time Display
   const timeDisplay = document.querySelector('.time-display');
-  const timeSelect = document.querySelector('.time-select');
+  const timeSelect = document.querySelectorAll('.time-select button');
 
   //Get the Lenggth of the outline
   const outlineLength = outline.getTotalLength();
@@ -22,14 +22,27 @@ const app = () => {
   outline.style.strokeDasharray = outlineLength;
   outline.style.strokeDashoffset = outlineLength;
 
+  //Pick different sounds
+  sounds.forEach(sounds => {
+    sounds.addEventListener('click', function () {
+      song.src = this.getAttribute('data-sound');
+      video.src = this.getAttribute('data-video');
+      checkPlaying(sound);
+    });
+  })
+
   //Play sound
   play.addEventListener("click", () => {
     checkPlaying(song);
   });
 
   //Select sound
-  timeSelect.array.forEach(element => {
-
+  timeSelect.forEach(option => {
+    option.addEventListener('click', function () {
+      fakeDuration = this.getAttribute('data-time');
+      timeDisplay.textContent = `${Math.floor(fakeDuration / 60)}:${Math.floor(fakeDuration % 60
+      )}`;
+    });
   });
 
   //Create a function specific to stop and play the sounds
@@ -59,6 +72,13 @@ const app = () => {
 
     //Animate the text
     timeDisplay.textContent = `${minutes}:${seconds}`;
+
+    if (currentTime >= fakeDuration) {
+      song.pause();
+      song.currentTime = 0;
+      play.src = 'Assets/svg/play.svg';
+      video.pause();
+    }
   };
 };
 
